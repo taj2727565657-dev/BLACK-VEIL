@@ -1,0 +1,2918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+      content="#05080c">
+
+<title>BLACK VEIL | Subject 001</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#05080c;
+    color:#dce3ea;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    min-height:100vh;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+.loading{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    background:#020407;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+}
+
+.loading h1{
+
+    color:white;
+
+    font-size:28px;
+
+    letter-spacing:9px;
+
+    text-align:center;
+}
+
+.loading p{
+
+    margin-top:12px;
+
+    color:#65717d;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    text-align:center;
+}
+
+.loader{
+
+    width:300px;
+
+    height:2px;
+
+    background:#1c232b;
+
+    margin-top:28px;
+
+    overflow:hidden;
+}
+
+.loader-bar{
+
+    width:0%;
+
+    height:100%;
+
+    background:#d5dde5;
+
+    transition:.2s;
+}
+
+
+/* =====================================================
+   APPLICATION
+===================================================== */
+
+.app{
+
+    display:none;
+
+    min-height:100vh;
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+
+    height:68px;
+
+    background:#080c11;
+
+    border-bottom:1px solid #202832;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 28px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+}
+
+.brand-symbol{
+
+    width:38px;
+
+    height:38px;
+
+    border:1px solid #596875;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#dce5ec;
+
+    font-size:17px;
+}
+
+.brand-name{
+
+    color:white;
+
+    font-size:15px;
+
+    letter-spacing:4px;
+}
+
+.brand-sub{
+
+    color:#65717d;
+
+    font-size:7px;
+
+    letter-spacing:2px;
+
+    margin-top:4px;
+}
+
+.classified{
+
+    color:#ff5353;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+.search{
+
+    width:260px;
+
+    height:37px;
+
+    background:#0b1016;
+
+    border:1px solid #27313b;
+
+    color:white;
+
+    padding:0 13px;
+
+    outline:none;
+
+    border-radius:2px;
+}
+
+.search::placeholder{
+
+    color:#4e5b66;
+}
+
+.session{
+
+    color:#68747f;
+
+    font-size:8px;
+
+    line-height:1.6;
+
+    text-align:right;
+}
+
+
+/* =====================================================
+   PAGE LAYOUT
+===================================================== */
+
+.layout{
+
+    display:grid;
+
+    grid-template-columns:220px 1fr;
+
+    min-height:calc(100vh - 68px);
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+
+    background:#080c11;
+
+    border-right:1px solid #202832;
+
+    padding:25px 14px;
+}
+
+.nav-title{
+
+    color:#46515c;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    padding:10px 12px;
+}
+
+.nav-item{
+
+    padding:13px 12px;
+
+    margin:3px 0;
+
+    color:#7c8792;
+
+    font-size:12px;
+
+    border-radius:3px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.nav-item:hover{
+
+    background:#111821;
+
+    color:white;
+}
+
+.nav-item.active{
+
+    background:#15202c;
+
+    color:white;
+
+    border-left:2px solid #57a9ff;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    padding:28px;
+
+    width:100%;
+
+    max-width:1800px;
+
+    margin:auto;
+}
+
+.breadcrumb{
+
+    color:#596673;
+
+    font-size:10px;
+
+    margin-bottom:18px;
+}
+
+.breadcrumb span{
+
+    color:#d7dee5;
+}
+
+.page-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.page-title h1{
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:500;
+
+    letter-spacing:1px;
+}
+
+.priority{
+
+    color:#ff5454;
+
+    border:1px solid #743333;
+
+    padding:7px 12px;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+}
+
+
+/* =====================================================
+   DOSSIER
+===================================================== */
+
+.dossier-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        330px
+        minmax(350px,1fr)
+        320px;
+
+    gap:15px;
+}
+
+
+/* =====================================================
+   PANELS
+===================================================== */
+
+.panel{
+
+    background:#0a0f15;
+
+    border:1px solid #222c36;
+
+    border-radius:2px;
+}
+
+.panel-title{
+
+    padding:15px 17px;
+
+    border-bottom:1px solid #222c36;
+
+    color:#8b98a5;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+}
+
+
+/* =====================================================
+   MAIN PHOTO
+===================================================== */
+
+.photo-panel{
+
+    padding:14px;
+}
+
+.photo-wrap{
+
+    height:410px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #303944,
+            #080c11 75%
+        );
+
+    border:1px solid #303b46;
+}
+
+.photo-wrap img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    filter:
+        contrast(1.08)
+        brightness(.87)
+        saturate(.78);
+}
+
+
+/* =====================================================
+   MASK
+===================================================== */
+
+.mask{
+
+    position:absolute;
+
+    left:14%;
+
+    right:14%;
+
+    bottom:7%;
+
+    height:25%;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #10151b,
+            #252d35,
+            #090d12
+        );
+
+    border-radius:
+        42% 42% 25% 25% /
+        25% 25% 75% 75%;
+
+    border:1px solid #3c4650;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.8);
+
+    opacity:.95;
+}
+
+.mask::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:5%;
+
+    bottom:5%;
+
+    width:1px;
+
+    background:#4a5661;
+}
+
+.mask::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.22;
+
+    background:
+
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 5px,
+            #87929c 6px
+        );
+}
+
+
+/* =====================================================
+   CLASSIFIED STAMP
+===================================================== */
+
+.classified-stamp{
+
+    position:absolute;
+
+    bottom:10px;
+
+    left:10px;
+
+    color:#ff5151;
+
+    border:1px solid #a43c3c;
+
+    padding:6px 8px;
+
+    font-size:7px;
+
+    letter-spacing:1px;
+
+    background:rgba(40,0,0,.5);
+}
+
+
+/* =====================================================
+   PHOTO INFO
+===================================================== */
+
+.photo-info{
+
+    padding-top:14px;
+}
+
+.face-status{
+
+    color:#62d0a0;
+
+    font-size:8px;
+
+    margin-bottom:12px;
+}
+
+.photo-buttons{
+
+    display:flex;
+
+    gap:7px;
+}
+
+.photo-buttons button{
+
+    flex:1;
+
+    padding:10px;
+
+    background:#0d141c;
+
+    color:#8c98a3;
+
+    border:1px solid #28333e;
+
+    font-size:8px;
+
+    cursor:pointer;
+}
+
+.photo-buttons button:hover{
+
+    background:#17212c;
+
+    color:white;
+}
+
+
+/* =====================================================
+   IDENTITY
+===================================================== */
+
+.identity{
+
+    padding:17px;
+}
+
+.identity-name{
+
+    color:white;
+
+    font-size:26px;
+
+    margin-bottom:5px;
+}
+
+.identity-alias{
+
+    color:#65717d;
+
+    font-size:9px;
+
+    margin-bottom:20px;
+}
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#67cf9e;
+
+    border:1px solid #274839;
+
+    padding:6px 9px;
+
+    font-size:8px;
+
+    margin-bottom:20px;
+}
+
+.status-dot{
+
+    width:6px;
+
+    height:6px;
+
+    background:#58d69b;
+
+    border-radius:50%;
+
+    box-shadow:0 0 8px #58d69b;
+}
+
+.info{
+
+    border-top:1px solid #202832;
+}
+
+.info-row{
+
+    display:grid;
+
+    grid-template-columns:150px 1fr;
+
+    padding:11px 0;
+
+    border-bottom:1px solid #182029;
+}
+
+.info-label{
+
+    color:#586571;
+
+    font-size:8px;
+
+    letter-spacing:.5px;
+}
+
+.info-value{
+
+    color:#cfd6dd;
+
+    font-size:9px;
+}
+
+
+/* =====================================================
+   CONTRACT
+===================================================== */
+
+.contract{
+
+    margin-top:20px;
+
+    border-top:1px solid #2b333c;
+
+    padding-top:18px;
+}
+
+.contract-title{
+
+    color:#87939e;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:14px;
+}
+
+.bounty{
+
+    color:#ff4141;
+
+    font-size:28px;
+
+    font-weight:600;
+}
+
+.contract-status{
+
+    color:#60d19d;
+
+    font-size:9px;
+}
+
+
+/* =====================================================
+   RIGHT COLUMN
+===================================================== */
+
+.right-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+
+/* =====================================================
+   THREAT
+===================================================== */
+
+.threat{
+
+    padding:18px;
+}
+
+.threat-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.threat-title{
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+}
+
+.critical{
+
+    color:#ff5050;
+
+    border:1px solid #733333;
+
+    padding:5px 8px;
+
+    font-size:7px;
+}
+
+.risk{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:17px;
+}
+
+.risk-circle{
+
+    width:78px;
+
+    height:78px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    border:7px solid #282f37;
+
+    border-top-color:#ff4c4c;
+
+    border-right-color:#ff4c4c;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+
+    color:white;
+}
+
+.risk-data{
+
+    flex:1;
+}
+
+.risk-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:7px 0;
+
+    border-bottom:1px solid #192029;
+
+    font-size:8px;
+}
+
+.risk-row span:first-child{
+
+    color:#596672;
+}
+
+.risk-row span:last-child{
+
+    color:#cfd6dc;
+}
+
+
+/* =====================================================
+   PEOPLE CARDS
+===================================================== */
+
+.people{
+
+    padding:0 17px 17px;
+}
+
+.person-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:13px 0;
+
+    border-bottom:1px solid #1c252e;
+}
+
+.person-card:last-child{
+
+    border-bottom:none;
+}
+
+.person-image{
+
+    width:48px;
+
+    height:48px;
+
+    flex-shrink:0;
+
+    object-fit:cover;
+
+    border:1px solid #303a44;
+
+    background:#111820;
+
+    filter:grayscale(.5);
+}
+
+.person-info{
+
+    flex:1;
+}
+
+.person-name{
+
+    color:#cfd6dd;
+
+    font-size:9px;
+}
+
+.person-role{
+
+    color:#596571;
+
+    font-size:7px;
+
+    margin-top:4px;
+}
+
+.person-value{
+
+    color:#8b98a4;
+
+    font-size:8px;
+}
+
+
+/* =====================================================
+   MENTORS
+===================================================== */
+
+.mentors{
+
+    padding:17px;
+}
+
+.mentor-card{
+
+    display:flex;
+
+    gap:11px;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #1b242d;
+}
+
+.mentor-card:last-child{
+
+    border-bottom:none;
+}
+
+.mentor-image{
+
+    width:43px;
+
+    height:43px;
+
+    object-fit:cover;
+
+    border:1px solid #3a4651;
+
+    filter:grayscale(1);
+
+    background:#141a20;
+}
+
+.mentor-name{
+
+    color:#cdd5dc;
+
+    font-size:9px;
+}
+
+.mentor-role{
+
+    color:#586571;
+
+    font-size:7px;
+
+    margin-top:4px;
+}
+
+.mentor-value{
+
+    margin-left:auto;
+
+    color:#77848f;
+
+    font-size:7px;
+}
+
+
+/* =====================================================
+   LOWER SECTION
+===================================================== */
+
+.lower{
+
+    margin-top:15px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr
+        1fr;
+
+    gap:15px;
+}
+
+
+/* =====================================================
+   TIMELINE
+===================================================== */
+
+.timeline{
+
+    padding:18px;
+}
+
+.timeline-item{
+
+    display:grid;
+
+    grid-template-columns:65px 1fr;
+
+    padding:14px 0;
+
+    border-bottom:1px solid #1b232b;
+}
+
+.timeline-year{
+
+    color:#64717d;
+
+    font-size:8px;
+}
+
+.timeline-text{
+
+    color:#9ba5ae;
+
+    font-size:9px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   NOTES
+===================================================== */
+
+.notes{
+
+    padding:18px;
+}
+
+.note{
+
+    padding:13px 0;
+
+    border-bottom:1px solid #1b232b;
+
+    color:#929da7;
+
+    font-size:9px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   WIFE PROFILE
+===================================================== */
+
+.wife-section{
+
+    margin-top:15px;
+}
+
+.wife-card{
+
+    display:grid;
+
+    grid-template-columns:130px 1fr;
+
+    gap:20px;
+
+    padding:18px;
+}
+
+.wife-image{
+
+    width:130px;
+
+    height:160px;
+
+    object-fit:cover;
+
+    border:1px solid #303b46;
+
+    filter:grayscale(.35);
+
+    background:#10161d;
+}
+
+.wife-name{
+
+    color:white;
+
+    font-size:20px;
+
+    margin-bottom:5px;
+}
+
+.wife-role{
+
+    color:#697682;
+
+    font-size:9px;
+
+    margin-bottom:15px;
+}
+
+.wife-info{
+
+    display:grid;
+
+    grid-template-columns:150px 1fr;
+}
+
+.wife-info div{
+
+    padding:8px 0;
+
+    border-bottom:1px solid #1b242d;
+
+    font-size:8px;
+}
+
+.wife-info div:nth-child(odd){
+
+    color:#586571;
+}
+
+.wife-info div:nth-child(even){
+
+    color:#cbd3da;
+}
+
+
+/* =====================================================
+   COMPANY RECORD
+===================================================== */
+
+.company{
+
+    margin-top:15px;
+
+    padding:18px;
+}
+
+.company-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.company-box{
+
+    padding:15px;
+
+    background:#0d141b;
+
+    border:1px solid #202b35;
+}
+
+.company-box h4{
+
+    color:#687581;
+
+    font-size:8px;
+
+    margin-bottom:8px;
+}
+
+.company-box p{
+
+    color:#d2d9df;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   SECRET RECORD
+===================================================== */
+
+.secret{
+
+    margin-top:15px;
+
+    border:1px solid #492727;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #10090a,
+            #0b0f14
+        );
+
+    padding:18px;
+}
+
+.secret-title{
+
+    color:#ff5555;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
+}
+
+.secret-content{
+
+    color:#7d858c;
+
+    font-size:9px;
+
+    line-height:1.8;
+}
+
+.locked{
+
+    margin-top:15px;
+
+    display:inline-block;
+
+    padding:7px 12px;
+
+    border:1px solid #513333;
+
+    color:#ff6969;
+
+    font-size:7px;
+
+    letter-spacing:1px;
+}
+
+
+/* =====================================================
+   IMAGE MODAL
+===================================================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.92);
+
+    z-index:5000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal img{
+
+    max-width:95vw;
+
+    max-height:90vh;
+
+    object-fit:contain;
+
+    border:1px solid #39434d;
+}
+
+.modal-close{
+
+    position:absolute;
+
+    top:20px;
+
+    right:25px;
+
+    color:white;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:1200px){
+
+    .dossier-grid{
+
+        grid-template-columns:
+            290px
+            1fr;
+    }
+
+    .right-column{
+
+        grid-column:1 / -1;
+
+        display:grid;
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .lower{
+
+        grid-template-columns:1fr;
+    }
+
+    .company-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    .topbar{
+
+        height:60px;
+
+        padding:0 15px;
+    }
+
+    .classified,
+    .search,
+    .session{
+
+        display:none;
+    }
+
+    .layout{
+
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+
+        display:none;
+    }
+
+    .main{
+
+        padding:14px;
+    }
+
+    .page-title{
+
+        align-items:flex-start;
+
+        gap:10px;
+    }
+
+    .page-title h1{
+
+        font-size:19px;
+    }
+
+    .dossier-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .right-column{
+
+        display:flex;
+
+        grid-column:auto;
+    }
+
+    .photo-wrap{
+
+        height:440px;
+    }
+
+    .identity-name{
+
+        font-size:22px;
+    }
+
+    .info-row{
+
+        grid-template-columns:
+            120px
+            1fr;
+    }
+
+    .bounty{
+
+        font-size:25px;
+    }
+
+    .company-grid{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .wife-card{
+
+        grid-template-columns:1fr;
+    }
+
+    .wife-image{
+
+        width:120px;
+
+        height:150px;
+    }
+}
+
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media(max-width:480px){
+
+    .main{
+
+        padding:10px;
+    }
+
+    .brand-name{
+
+        font-size:12px;
+
+        letter-spacing:3px;
+    }
+
+    .brand-sub{
+
+        display:none;
+    }
+
+    .photo-wrap{
+
+        height:380px;
+    }
+
+    .info-row{
+
+        grid-template-columns:
+            105px
+            1fr;
+    }
+
+    .info-label,
+    .info-value{
+
+        font-size:7px;
+    }
+
+    .risk{
+
+        gap:10px;
+    }
+
+    .risk-circle{
+
+        width:65px;
+
+        height:65px;
+    }
+
+    .company-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .wife-info{
+
+        grid-template-columns:
+            120px
+            1fr;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div class="loading" id="loading">
+
+    <h1>BLACK VEIL</h1>
+
+    <p>
+        RESTRICTED FICTIONAL INTELLIGENCE ARCHIVE
+    </p>
+
+    <div class="loader">
+
+        <div
+            class="loader-bar"
+            id="loaderBar">
+        </div>
+
+    </div>
+
+    <p id="loadingText">
+        Establishing secure session...
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div class="app" id="app">
+
+
+<!-- =====================================================
+     TOPBAR
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-symbol">
+            ◈
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                BLACK VEIL
+            </div>
+
+            <div class="brand-sub">
+                FICTIONAL INTELLIGENCE ARCHIVE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="classified">
+        CLASSIFIED // FICTION
+    </div>
+
+
+    <input
+        class="search"
+        id="searchBox"
+        placeholder="Search subject, alias, ID..."
+    >
+
+
+    <div class="session">
+
+        SESSION: BV-7F3A<br>
+
+        ● SECURE CONNECTION
+
+    </div>
+
+</header>
+
+
+
+<div class="layout">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="nav-title">
+        MAIN
+    </div>
+
+    <div class="nav-item active">
+        ◉ &nbsp; Subject
+    </div>
+
+    <div class="nav-item">
+        ▣ &nbsp; Case Files
+    </div>
+
+    <div class="nav-item">
+        ◷ &nbsp; Timeline
+    </div>
+
+    <div class="nav-item">
+        ◈ &nbsp; Intelligence
+    </div>
+
+    <div class="nav-item">
+        ▤ &nbsp; Reports
+    </div>
+
+    <div class="nav-item">
+        ▦ &nbsp; Archive
+    </div>
+
+
+    <div class="nav-title">
+        RELATIONSHIPS
+    </div>
+
+    <div class="nav-item">
+        ◇ &nbsp; Mentors
+    </div>
+
+    <div class="nav-item">
+        ◇ &nbsp; Associates
+    </div>
+
+    <div class="nav-item">
+        ◇ &nbsp; Family
+    </div>
+
+
+    <div class="nav-title">
+        SYSTEM
+    </div>
+
+    <div class="nav-item">
+        ⚙ &nbsp; Settings
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<div class="breadcrumb">
+
+    Subjects /
+    <span>
+        Subject 001 / Rizwan
+    </span>
+
+</div>
+
+
+
+<div class="page-title">
+
+    <h1>
+        SUBJECT 001
+    </h1>
+
+    <div class="priority">
+        HIGH PRIORITY
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN DOSSIER
+===================================================== -->
+
+<section class="dossier-grid">
+
+
+<!-- =====================================================
+     PHOTO
+===================================================== -->
+
+<div class="panel photo-panel">
+
+    <div class="photo-wrap">
+
+        <!-- YOUR IMAGE -->
+
+        <img
+            src="C:\Users\tajba\OneDrive\Documents\New folder\New folder\images\WhatsApp Image 2026-10-03 at 12.57.33 PM.jpeg"
+            alt="Rizwan">
+
+        <!-- FICTIONAL MASK -->
+
+        <div class="mask"></div>
+
+
+        <div class="classified-stamp">
+            CLASSIFIED
+        </div>
+
+    </div>
+
+
+    <div class="photo-info">
+
+        <div class="face-status">
+
+            ● VISUAL RECORD ACTIVE
+
+        </div>
+
+
+        <div class="photo-buttons">
+
+            <button onclick="openImage('images/rizwan.jpg')">
+
+                VIEW IMAGE
+
+            </button>
+
+
+            <button onclick="showMessage()">
+
+                ARCHIVE
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     IDENTITY
+===================================================== -->
+
+<div class="panel identity">
+
+
+    <div class="identity-name">
+
+        Rizwan
+
+    </div>
+
+
+    <div class="identity-alias">
+
+        ALIAS: TR
+
+    </div>
+
+
+    <div class="status">
+
+        <span class="status-dot"></span>
+
+        ACTIVE
+
+    </div>
+
+
+
+    <div class="info">
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                FULL NAME
+            </div>
+
+            <div class="info-value">
+                Rizwan
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                AGE
+            </div>
+
+            <div class="info-value">
+                19
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                DATE OF BIRTH
+            </div>
+
+            <div class="info-value">
+                21 / 02 / XXXX
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                GENDER
+            </div>
+
+            <div class="info-value">
+                MALE
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                NATIONALITY
+            </div>
+
+            <div class="info-value">
+                INDIAN
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                OCCUPATION
+            </div>
+
+            <div class="info-value">
+                STUDENT
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                EDUCATION
+            </div>
+
+            <div class="info-value">
+                B.TECH — 3rd YEAR / 1st SEMESTER
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                LOCATION
+            </div>
+
+            <div class="info-value">
+                ANDHRA PRADESH, INDIA
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                MARITAL STATUS
+            </div>
+
+            <div class="info-value">
+                MARRIED — JANUARY 2026
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                CURRENT YEAR
+            </div>
+
+            <div class="info-value">
+                2026
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+<!-- =====================================================
+     CONTRACT
+===================================================== -->
+
+<div class="contract">
+
+    <div class="contract-title">
+
+        CONTRACT INFORMATION
+
+    </div>
+
+
+    <div class="info-row">
+
+        <div class="info-label">
+            FICTIONAL REWARD
+        </div>
+
+        <div class="bounty">
+            $10,000,000
+        </div>
+
+    </div>
+
+
+    <div class="info-row">
+
+        <div class="info-label">
+            STATUS
+        </div>
+
+        <div class="contract-status">
+            ACTIVE
+        </div>
+
+    </div>
+
+
+    <div class="info-row">
+
+        <div class="info-label">
+            RECORD PERIOD
+        </div>
+
+        <div class="info-value">
+            2021 — 2026
+        </div>
+
+    </div>
+
+
+    <div class="info-row">
+
+        <div class="info-label">
+            CLASSIFICATION
+        </div>
+
+        <div class="info-value">
+            RESTRICTED
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     RIGHT COLUMN
+===================================================== -->
+
+<div class="right-column">
+
+
+<!-- THREAT -->
+
+<div class="panel threat">
+
+    <div class="threat-header">
+
+        <div class="threat-title">
+            THREAT ASSESSMENT
+        </div>
+
+        <div class="critical">
+            CRITICAL
+        </div>
+
+    </div>
+
+
+    <div class="risk">
+
+        <div class="risk-circle">
+            9.8
+        </div>
+
+
+        <div class="risk-data">
+
+            <div class="risk-row">
+
+                <span>
+                    Risk Level
+                </span>
+
+                <span>
+                    9.8 / 10
+                </span>
+
+            </div>
+
+
+            <div class="risk-row">
+
+                <span>
+                    Priority
+                </span>
+
+                <span>
+                    EXTREME
+                </span>
+
+            </div>
+
+
+            <div class="risk-row">
+
+                <span>
+                    Intelligence
+                </span>
+
+                <span>
+                    VERY HIGH
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ASSOCIATES -->
+
+<div class="panel">
+
+    <div class="panel-title">
+
+        ASSOCIATED SUBJECTS
+
+    </div>
+
+
+    <div class="people">
+
+
+        <div class="person-card">
+
+            <img
+                src="C:\Users\tajba\OneDrive\Documents\New folder\New folder\images\image.png"
+                class="person-image"
+                alt="Associate">
+
+            <div class="person-info">
+
+                <div class="person-name">
+                    Elon Musk
+                </div>
+
+                <div class="person-role">
+                   Bussiness Magnet
+                </div>
+
+            </div>
+
+            <div class="person-value">
+                $2.5M
+            </div>
+
+        </div>
+
+
+
+        <div class="person-card">
+
+            <img
+                src="C:\Users\tajba\OneDrive\Documents\New folder\New folder\images\tt.webp"
+                class="person-image"
+                alt="Associate">
+
+            <div class="person-info">
+
+                <div class="person-name">
+                    Druckenmille
+                </div>
+
+                <div class="person-role">
+                    TRADER ANDINVESTOR
+                </div>
+
+            </div>
+
+            <div class="person-value">
+                $1.8M
+            </div>
+
+        </div>
+
+
+
+        <div class="person-card">
+
+            <img
+                src="ic:\Users\tajba\OneDrive\Documents\ml\JJ.webp"
+                class="person-image"
+                alt="Subject">
+
+            <div class="person-info">
+
+                <div class="person-name">
+                    Fumio Kishida 
+                </div>
+
+                <div class="person-role">
+                   MINISTER OF JAPAN
+                </div>
+
+            </div>
+
+            <div class="person-value">
+                $900K
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- MENTORS -->
+
+<div class="panel mentors">
+
+    <div class="panel-title">
+
+        MENTOR NETWORK
+
+    </div>
+
+
+    <div class="mentor-card">
+
+        <img
+            src="C:\Users\tajba\OneDrive\Documents\New folder\New folder\images\JJ.webp"
+            class="mentor-image"
+            alt="Mentor">
+
+        <div>
+
+            <div class="mentor-name">
+                TEACHER-01
+            </div>
+
+            <div class="mentor-role">
+                STRATEGY / INTELLIGENCE
+            </div>
+
+        </div>
+
+        <div class="mentor-value">
+            $1.2M
+        </div>
+
+    </div>
+
+
+    <div class="mentor-card">
+
+        <img
+            src="C:\Users\tajba\OneDrive\Documents\New folder\New folder\images\tt.webp"
+            class="mentor-image"
+            alt="Mentor">
+
+        <div>
+
+            <div class="mentor-name">
+                TEACHER-02
+            </div>
+
+            <div class="mentor-role">
+                TECHNOLOGY / SYSTEMS
+            </div>
+
+        </div>
+
+        <div class="mentor-value">
+            $850K
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WIFE
+===================================================== -->
+
+<section class="wife-section">
+
+<div class="panel">
+
+    <div class="panel-title">
+
+        FAMILY RECORD — SPOUSE
+
+    </div>
+
+
+    <div class="wife-card">
+
+
+        <img
+            src="C:\Users\tajba\OneDrive\Documents\New folder\New folder\image.png"
+            class="wife-image"
+            alt="Spouse">
+
+
+        <div>
+
+            <div class="wife-name">
+                MRS. AISHA RIZWAN
+            </div>
+
+            <div class="wife-role">
+                MEDICAL STUDENT / FUTURE NEUROSURGEON
+            </div>
+
+
+            <div class="wife-info">
+
+                <div>
+                    AGE
+                </div>
+
+                <div>
+                    19
+                </div>
+
+
+                <div>
+                    MARRIAGE
+                </div>
+
+                <div>
+                    JANUARY 2026
+                </div>
+
+
+                <div>
+                    EDUCATION
+                </div>
+
+                <div>
+                    MEDICAL STUDIES
+                </div>
+
+
+                <div>
+                    SPECIALIZATION
+                </div>
+
+                <div>
+                    NEUROSURGERY
+                </div>
+
+
+                <div>
+                    AWARENESS LEVEL
+                </div>
+
+                <div>
+                    LIMITED
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     COMPANY
+===================================================== -->
+
+<section class="company panel">
+
+    <div class="panel-title">
+
+        CORPORATE HISTORY
+
+    </div>
+
+
+    <div class="company-grid">
+
+
+        <div class="company-box">
+
+            <h4>
+                FORMER POSITION
+            </h4>
+
+            <p>
+                FOUNDER / DIRECTOR
+            </p>
+
+        </div>
+
+
+        <div class="company-box">
+
+            <h4>
+                CURRENT STATUS
+            </h4>
+
+            <p>
+                REMOVED FROM OPERATIONS
+            </p>
+
+        </div>
+
+
+        <div class="company-box">
+
+            <h4>
+                PURPOSE
+            </h4>
+
+            <p>
+                PROTECTIVE LEAVE
+            </p>
+
+        </div>
+
+
+        <div class="company-box">
+
+            <h4>
+                RECORD YEAR
+            </h4>
+
+            <p>
+                2026
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TIMELINE
+===================================================== -->
+
+<section class="lower">
+
+
+<div class="panel timeline">
+
+    <div class="panel-title">
+
+        CASE TIMELINE
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            2021
+        </div>
+
+        <div class="timeline-text">
+
+            Subject enters the fictional
+            BLACK VEIL record.
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            2022
+        </div>
+
+        <div class="timeline-text">
+
+            Intelligence activity begins
+            increasing.
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            2023
+        </div>
+
+        <div class="timeline-text">
+
+            Mentor network becomes visible
+            in encrypted records.
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            2024
+        </div>
+
+        <div class="timeline-text">
+
+            Subject classification upgraded.
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            2025
+        </div>
+
+        <div class="timeline-text">
+
+            Corporate activity reaches
+            highest recorded level.
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            JAN 2026
+        </div>
+
+        <div class="timeline-text">
+
+            Subject marries SPOUSE-001.
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-year">
+            2026
+        </div>
+
+        <div class="timeline-text">
+
+            Corporate position terminated.
+            Subject remains active.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ANALYST NOTES
+===================================================== -->
+
+<div class="panel notes">
+
+    <div class="panel-title">
+
+        ANALYST NOTES
+
+    </div>
+
+
+    <div class="note">
+
+        Subject currently appears to have
+        limited visible financial resources.
+
+    </div>
+
+
+    <div class="note">
+
+        Previous corporate records indicate
+        unusually high responsibility.
+
+    </div>
+
+
+    <div class="note">
+
+        Several records concerning the subject's
+        earlier years remain inaccessible.
+
+    </div>
+
+
+    <div class="note">
+
+        Mentor identities are intentionally
+        classified within this fictional archive.
+
+    </div>
+
+
+    <div class="note">
+
+        Spouse appears unaware of several
+        restricted records.
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SECRET RECORD
+===================================================== -->
+
+<section class="secret">
+
+    <div class="secret-title">
+
+        ⚠ RESTRICTED RECORD DETECTED
+
+    </div>
+
+
+    <div class="secret-content">
+
+        Historical intelligence references a
+        five-year period containing multiple
+        unidentified events.
+
+        <br><br>
+
+        The available database does not reveal
+        the complete relationship between
+        SUBJECT 001 and the individuals listed
+        under the mentor network.
+
+        <br><br>
+
+        Additional information requires
+        fictional narrative authorization.
+
+    </div>
+
+
+    <div class="locked">
+
+        🔒 RECORD PARTIALLY LOCKED
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     IMAGE MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="imageModal"
+    onclick="closeImage()">
+
+    <span class="modal-close">
+        ×
+    </span>
+
+    <img
+        id="modalImage"
+        src=""
+        alt="Full image">
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+let progress = 0;
+
+const bar =
+document.getElementById("loaderBar");
+
+const loadingText =
+document.getElementById("loadingText");
+
+
+const messages = [
+
+    "Establishing secure session...",
+
+    "Loading identity record...",
+
+    "Loading visual archive...",
+
+    "Synchronizing intelligence records...",
+
+    "Opening restricted database..."
+
+];
+
+
+const timer = setInterval(() => {
+
+
+    progress +=
+        Math.random() * 12;
+
+
+    if(progress >= 100){
+
+        progress = 100;
+
+        bar.style.width =
+            "100%";
+
+        loadingText.innerText =
+            "Session established.";
+
+
+        clearInterval(timer);
+
+
+        setTimeout(() => {
+
+            document
+                .getElementById("loading")
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById("app")
+                .style.display =
+                "block";
+
+        },700);
+
+
+    }else{
+
+        bar.style.width =
+            progress + "%";
+
+
+        if(progress < 25){
+
+            loadingText.innerText =
+                messages[0];
+
+        }else if(progress < 50){
+
+            loadingText.innerText =
+                messages[1];
+
+        }else if(progress < 75){
+
+            loadingText.innerText =
+                messages[2];
+
+        }else{
+
+            loadingText.innerText =
+                messages[3];
+
+        }
+
+    }
+
+},250);
+
+
+
+/* =====================================================
+   IMAGE VIEWER
+===================================================== */
+
+function openImage(image){
+
+    const modal =
+        document.getElementById(
+            "imageModal"
+        );
+
+    const modalImage =
+        document.getElementById(
+            "modalImage"
+        );
+
+    modalImage.src = image;
+
+    modal.style.display =
+        "flex";
+}
+
+
+function closeImage(){
+
+    document
+        .getElementById(
+            "imageModal"
+        )
+        .style.display =
+        "none";
+}
+
+
+/* =====================================================
+   ARCHIVE MESSAGE
+===================================================== */
+
+function showMessage(){
+
+    alert(
+        "ARCHIVE RECORD: " +
+        "Access restricted in this fictional database."
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+    .getElementById("searchBox")
+    .addEventListener(
+        "keyup",
+        function(){
+
+            const value =
+                this.value
+                .toLowerCase()
+                .trim();
+
+
+            const cards =
+                document.querySelectorAll(
+                    ".person-card, .mentor-card"
+                );
+
+
+            cards.forEach(card => {
+
+                const text =
+                    card.innerText
+                    .toLowerCase();
+
+
+                if(
+                    value === "" ||
+                    text.includes(value)
+                ){
+
+                    card.style.display =
+                        "flex";
+
+                }else{
+
+                    card.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>
